@@ -1,0 +1,13 @@
+{
+  "signup": {
+    "patient": "I am a patient",
+    "doctor": "I am a doctor",
+    "signup": "Sign up",
+    "haveAccount": "Already have an account"
+  },
+  "firstName": "First name",
+  "lastName": "Last name",
+  "birthDate": "Date of birth",
+  "email": "Email",
+  "phone": "Phone"
+}

@@ -1,0 +1,13 @@
+{
+  "signup": {
+    "patient": "Я пацієнт",
+    "doctor": "Я лікар",
+    "signup": "Зареєструватися",
+    "haveAccount": "Вже маю акаунт"
+  },
+  "firstName": "Ім'я",
+  "lastName": "Прізвище",
+  "birthDate": "Дата народження",
+  "email": "Емейл",
+  "phone": "Телефон"
+}
