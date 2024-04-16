@@ -1,6 +1,7 @@
 const Doctor = require("../models/DoctorModel");
 const User = require("../models/UserModel");
 const Specialty = require("../models/SpecialtyModel");
+const { Op } = require("sequelize");
 
 async function createDoctor(req, res) {
   try {
