@@ -7,6 +7,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.8",
     "@mui/material": "^5.15.7",
+    "@reduxjs/toolkit": "^2.2.3",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -16,13 +17,16 @@
     "@types/react-dom": "^18.2.18",
     "axios": "^1.6.7",
     "dayjs": "^1.11.10",
+    "dotenv": "^16.4.5",
     "eslint-config-prettier": "^9.1.0",
     "formik": "^2.4.5",
     "i18next": "^23.8.2",
+    "process": "^0.11.10",
     "react": "^18.2.0",
     "react-cookie": "^7.0.2",
     "react-dom": "^18.2.0",
     "react-i18next": "^14.0.5",
+    "react-redux": "^9.1.1",
     "react-router-dom": "^6.22.0",
     "react-scripts": "5.0.1",
     "react-toastify": "^10.0.4",
@@ -55,7 +59,11 @@
       "react-app",
       "react-app/jest",
       "prettier"
-    ]
+    ],
+    "env": {
+      "browser": true,
+      "node": true
+    }
   },
   "browserslist": {
     "production": [
@@ -70,7 +78,9 @@
     ]
   },
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "prettier": "3.2.4",
+    "react-error-overlay": "6.0.9",
     "tailwindcss": "^3.4.1"
   }
 }
