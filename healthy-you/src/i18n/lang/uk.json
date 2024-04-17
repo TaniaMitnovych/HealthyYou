@@ -3,11 +3,14 @@
     "patient": "Я пацієнт",
     "doctor": "Я лікар",
     "signup": "Зареєструватися",
+    "login": "Увійти",
     "haveAccount": "Вже маю акаунт"
   },
   "firstName": "Ім'я",
   "lastName": "Прізвище",
   "birthDate": "Дата народження",
   "email": "Емейл",
-  "phone": "Телефон"
+  "phone": "Телефон",
+  "password": "Пароль",
+  "confirmPassword": "Повторіть пароль"
 }

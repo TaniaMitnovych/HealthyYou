@@ -3,9 +3,10 @@ export interface IUser {
   email: string;
   firstName: string;
   lastName: string;
-  birthDate: Date | null;
-  gender: string;
-  phoneNumber: string;
+  birthDate?: Date | null;
+  sex?: string | null;
+  phone?: string | null;
+  password?: string | null;
 }
 
 // interface IPatient extends IUser {
