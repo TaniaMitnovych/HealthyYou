@@ -126,7 +126,7 @@ async function filterDoctorsByName(req, res) {
 }
 
 async function filterDoctors(req, res) {
-  const { specialtyId, minExperience, maxExperience, name } = req.query;
+  const { specialtyId, minExperience, maxExperience, name, sex } = req.query;
   try {
     let whereClause = {};
 
@@ -152,6 +152,14 @@ async function filterDoctors(req, res) {
           { firstName: { [Op.iLike]: `%${name}%` } },
           { lastName: { [Op.iLike]: `%${name}%` } },
         ],
+      };
+    }
+    if (sex) {
+      includeClause[0].where = {
+        ...includeClause[0].where,
+        sex: {
+          [Op.eq]: sex,
+        },
       };
     }
 

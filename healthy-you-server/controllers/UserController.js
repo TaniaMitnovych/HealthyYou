@@ -1,5 +1,6 @@
 const Role = require("../models/RoleModel");
 const User = require("../models/UserModel");
+const { cleanUp } = require("../utils/helpers");
 
 // Controller for creating a new user
 async function createUser(req, res) {
@@ -60,7 +61,9 @@ async function getUserById(req, res) {
 async function updateUser(req, res) {
   const { id } = req.params;
   try {
-    const [updated] = await User.update(req.body, {
+    const userdata = cleanUp(req.body);
+    console.log(userdata);
+    const [updated] = await User.update(userdata, {
       where: { id },
     });
     if (updated) {
