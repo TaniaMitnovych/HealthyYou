@@ -12,5 +12,14 @@
   "email": "Емейл",
   "phone": "Телефон",
   "password": "Пароль",
-  "confirmPassword": "Повторіть пароль"
+  "confirmPassword": "Повторіть пароль",
+  "sex": {
+    "sex": "Стать",
+    "male": "Чоловік",
+    "female": "Жінка"
+  },
+  "button": {
+    "cancel": "Скасувати",
+    "submit": "Підтвердити"
+  }
 }

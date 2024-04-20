@@ -11,6 +11,8 @@ import { Button } from "@mui/material";
 import api from "../api";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { setUser } from "../store/slices/user";
+import { useDispatch, useSelector } from "react-redux";
 
 function LoginForm() {
   const SignupSchema = Yup.object().shape({
@@ -18,8 +20,10 @@ function LoginForm() {
     password: Yup.string().min(8).required("Password is required"),
   });
   const { t } = useTranslation();
-  const { setUser } = useContext(AuthContext);
+  const { updateUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state: any) => state.user);
 
   const submit = (email: string, password: string) => {
     api.auth
@@ -28,7 +32,7 @@ function LoginForm() {
         password,
       })
       .then((res: any) => {
-        setUser(res.data.user);
+        dispatch(setUser(res.data.user));
         navigate("/");
       });
   };
