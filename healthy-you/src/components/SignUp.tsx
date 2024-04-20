@@ -11,6 +11,8 @@ import { Button } from "@mui/material";
 import api from "../api";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../store/slices/user";
 
 function SignUp() {
   const SignupSchema = Yup.object().shape({
@@ -28,8 +30,9 @@ function SignUp() {
   });
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { setToken, setUser } = useContext(AuthContext);
-
+  const { setToken, updateUser } = useContext(AuthContext);
+  const dispatch = useDispatch();
+  const user = useSelector((state: any) => state.user);
   const submit = (data: any) => {
     api.auth
       .signUp({
@@ -40,8 +43,8 @@ function SignUp() {
         role: data.role,
       })
       .then((res: any) => {
-        setUser(res.data.user);
-        navigate("/");
+        dispatch(setUser(res.data.user));
+        navigate("/info");
       });
   };
   return (

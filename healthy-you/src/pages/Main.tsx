@@ -4,6 +4,7 @@ import { useCookies } from "react-cookie";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import api from "../api";
+import DoctorsFilterbar from "../components/DoctorsFilterbar";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -28,11 +29,7 @@ const Main = () => {
   return (
     <>
       <div className="home_page">
-        <h4>
-          {" "}
-          Welcome <span>TANIA</span>
-        </h4>
-        {/* <button onClick={Logout}>LOGOUT</button> */}
+        <DoctorsFilterbar />
       </div>
       <ToastContainer />
     </>

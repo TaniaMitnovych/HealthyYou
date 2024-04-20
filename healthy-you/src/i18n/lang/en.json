@@ -12,5 +12,14 @@
   "email": "Email",
   "phone": "Phone",
   "password": "Password",
-  "confirmPassword": "Confirm password"
+  "confirmPassword": "Confirm password",
+  "sex": {
+    "sex": "Sex",
+    "male": "Male",
+    "female": "Female"
+  },
+  "button": {
+    "cancel": "Cancel",
+    "submit": "Submit"
+  }
 }

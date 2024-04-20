@@ -7,12 +7,16 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import api from "./api";
 import { ToastContainer, toast } from "react-toastify";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 function App() {
   return (
-    <div className="App">
-      <Router />
-    </div>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <div className="App">
+        <Router />
+      </div>
+    </LocalizationProvider>
   );
 }
 
