@@ -1,12 +1,18 @@
-import io from "socket.io-client"; // Add this
 import MessagesReceived from "./Messages";
 import { useState } from "react";
 import SendMessage from "./SendMessage";
 import api from "../../api";
 import { useDispatch, useSelector } from "react-redux";
+//import socket from "../../socket/socket";
+import io from "socket.io-client"; // Add this
+import Cookies from "js-cookie";
 
-const socket = io.connect("http://localhost:4000");
-
+console.log(Cookies.get("token"));
+const socket = io.connect("http://localhost:4000", {
+  query: {
+    token: Cookies.get("token"),
+  },
+});
 function Chat({ userId }) {
   const [username, setUsername] = useState(""); // Add this
   const [room, setRoom] = useState(""); // Add this

@@ -12,5 +12,4 @@ const Room = sequelize.define("Room", {
     type: DataTypes.ARRAY(DataTypes.UUID),
   },
 });
-Room.sync({ force: true });
 module.exports = Room;

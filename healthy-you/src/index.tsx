@@ -16,19 +16,19 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <AuthProvider>
-          <CookiesProvider defaultSetOptions={{ path: "/" }}>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
-          </CookiesProvider>
-        </AuthProvider>
-      </PersistGate>
-    </Provider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <AuthProvider>
+        <CookiesProvider defaultSetOptions={{ path: "/" }}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </CookiesProvider>
+      </AuthProvider>
+    </PersistGate>
+  </Provider>
+  // </React.StrictMode>
 );
 
 // If you want your app to work offline and load faster, you can change

@@ -4,8 +4,9 @@ const Room = require("../models/RoomModel");
 
 async function getRoom(req, res) {
   try {
+    console.log(req.query, "QUERY");
     const { currentUserId, userId } = req.query;
-
+    console.log(currentUserId, userId);
     let room = await Room.findOne({
       where: {
         userIds: {
@@ -13,8 +14,10 @@ async function getRoom(req, res) {
         },
       },
     });
+    console.log(room);
     if (!room) {
-      room = await Room.create({ userId: [currentUserId, userId] });
+      console.log("CAAAAAAAAAAAAAAAAAAAAAA");
+      room = await Room.create({ userIds: [currentUserId, userId] });
     }
     return res.json(room);
   } catch (error) {
@@ -24,11 +27,12 @@ async function getRoom(req, res) {
 
 async function getMessages(req, res) {
   try {
-    const { roomId } = req.params;
+    const { id } = req.params;
+    //console.log(roomId);
     const messages = await Message.findAll({
       where: {
         roomId: {
-          [Op.eq]: roomId,
+          [Op.eq]: id,
         },
       },
     });

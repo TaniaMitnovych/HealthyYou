@@ -7,9 +7,7 @@ function getRoom(currentUserId: string, userId: string) {
 }
 
 function getMessages(roomId: string) {
-  return axios.get("/chat", {
-    params: { roomId },
-  });
+  return axios.get(`/chat/${roomId}`);
 }
 export default {
   getRoom,

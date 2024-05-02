@@ -20,6 +20,7 @@ const Specialty = require("./models/SpecialtyModel");
 const { Server } = require("socket.io");
 const Message = require("./models/MessageModel");
 const { addMessage } = require("./service/chat");
+const authSocketMiddleware = require("./middlewares/AuthSocketMiddleware");
 // mongoose
 //   .connect(MONGO_URL, {
 //     useNewUrlParser: true,
@@ -39,6 +40,9 @@ const io = new Server(server, {
     origin: "http://localhost:3000",
     methods: ["GET", "POST"],
   },
+});
+io.use((socket, next) => {
+  authSocketMiddleware(socket, next);
 });
 app.use(
   cors({
@@ -63,7 +67,7 @@ io.on("connection", (socket) => {
   socket.on("join_room", (data) => {
     const { roomId } = data; // Data sent from client when join_room event emitted
     socket.join(roomId); // Join the user to a socket room
-
+    console.log("User joined");
     socket.on("send_message", (data) => {
       console.log(data);
       addMessage(data);
