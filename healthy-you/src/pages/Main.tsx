@@ -12,6 +12,7 @@ const Main = () => {
 
   useEffect(() => {
     const verifyCookie = async () => {
+      console.log(cookies.token);
       if (!cookies.token) {
         navigate("/login");
       }
