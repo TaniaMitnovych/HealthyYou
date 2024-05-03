@@ -19,6 +19,8 @@ const User = require("./models/UserModel");
 const Specialty = require("./models/SpecialtyModel");
 const { Server } = require("socket.io");
 const Message = require("./models/MessageModel");
+const Appointment = require("./models/AppointmentModel");
+const Schedule = require("./models/ScheduleModel");
 const { addMessage } = require("./service/chat");
 const authSocketMiddleware = require("./middlewares/AuthSocketMiddleware");
 // mongoose

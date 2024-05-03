@@ -13,6 +13,9 @@ const Doctor = sequelize.define("Doctor", {
     type: DataTypes.INTEGER,
     require: true,
   },
+  description: {
+    type: DataTypes.TEXT,
+  },
 });
 User.hasOne(Doctor, { foreignKey: { name: "userId", allowNull: false } });
 Doctor.belongsTo(User, { foreignKey: { name: "userId", allowNull: false } });
@@ -20,4 +23,5 @@ Doctor.belongsTo(User, { foreignKey: { name: "userId", allowNull: false } });
 Specialty.hasOne(Doctor, { foreignKey: "specialtyId" });
 Doctor.belongsTo(Specialty, { foreignKey: "specialtyId" });
 
+Doctor.sync();
 module.exports = Doctor;
