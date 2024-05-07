@@ -23,5 +23,4 @@ Doctor.belongsTo(User, { foreignKey: { name: "userId", allowNull: false } });
 Specialty.hasOne(Doctor, { foreignKey: "specialtyId" });
 Doctor.belongsTo(Specialty, { foreignKey: "specialtyId" });
 
-Doctor.sync();
 module.exports = Doctor;

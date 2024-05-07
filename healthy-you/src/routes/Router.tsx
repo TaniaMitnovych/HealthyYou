@@ -4,6 +4,8 @@ import Main from "../pages/Main";
 import SignUp from "../components/SignUp";
 import AdditionalInfoForm from "../components/AdditionalInfoForm";
 import Chat from "../components/Chat/Chat.jsx";
+import ChatList from "../components/Chat/ChatList";
+import ChatPage from "../pages/ChatPage";
 
 function Router() {
   return (
@@ -13,10 +15,7 @@ function Router() {
         <Route path="/" element={<Main />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/info" element={<AdditionalInfoForm />} />
-        <Route
-          path="/chat"
-          element={<Chat userId="65d71e22-0e5a-4f40-9437-283254c548fc" />}
-        />
+        <Route path="/chat" element={<ChatPage />} />
       </Routes>
     </div>
   );
