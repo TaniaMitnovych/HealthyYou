@@ -26,6 +26,8 @@ const Schedule = require("./models/ScheduleModel");
 const RoomUsers = require("./models/RoomUsersModel");
 const { addMessage } = require("./service/chat");
 const authSocketMiddleware = require("./middlewares/AuthSocketMiddleware");
+const nodeMailer = require("nodemailer");
+const cron = require("node-cron");
 // mongoose
 //   .connect(MONGO_URL, {
 //     useNewUrlParser: true,
@@ -87,6 +89,37 @@ io.on("connection", (socket) => {
   // We can write our socket event listeners in here...
 });
 
+app.post("/email", (req, res) => {
+  let config = {
+    service: "gmail", // your email domain
+    auth: {
+      user: process.env.EMAIL_ADDRESS, // your email address
+      pass: process.env.EMAIL_PASSWORD,
+      //pass: "yrio kjgu hgbv feha", // your password
+    },
+  };
+  let transporter = nodeMailer.createTransport(config);
+  let message = {
+    from: "taniamitnovych15@gmail.com", // sender address
+    to: "tetiana.mitnovych.pz.2020@lpnu.ua", // list of receivers
+    subject: "Тест розкладу", // Subject line
+    html: "<b>Hello world?</b>", // html body
+  };
+  cron.schedule("1 23 7 5 *", () => {
+    transporter
+      .sendMail(message)
+      .then((info) => {
+        return res.status(201).json({
+          msg: "Email sent",
+          info: info.messageId,
+          preview: nodeMailer.getTestMessageUrl(info),
+        });
+      })
+      .catch((err) => {
+        return res.status(500).json({ msg: err });
+      });
+  });
+});
 app.use(cookieParser());
 app.use(express.json());
 //app.use("/doctors", doctorsRoute);
