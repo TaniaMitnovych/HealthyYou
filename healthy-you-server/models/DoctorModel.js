@@ -13,6 +13,9 @@ const Doctor = sequelize.define("Doctor", {
     type: DataTypes.INTEGER,
     require: true,
   },
+  description: {
+    type: DataTypes.TEXT,
+  },
 });
 User.hasOne(Doctor, { foreignKey: { name: "userId", allowNull: false } });
 Doctor.belongsTo(User, { foreignKey: { name: "userId", allowNull: false } });

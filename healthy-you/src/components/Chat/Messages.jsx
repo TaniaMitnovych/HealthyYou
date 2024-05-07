@@ -1,12 +1,20 @@
 import { useState, useEffect } from "react";
+import MessageCard from "./MessageCard";
 
-const Messages = ({ socket, messages }) => {
-  const [messagesRecieved, setMessagesReceived] = useState(messages);
-
+const Messages = ({ socket, messages, setMessages }) => {
+  //const [messagesReceived, setMessagesReceived] = useState(messages);
+  console.log(messages);
   // Runs whenever a socket event is recieved from the server
   useEffect(() => {
     socket.on("receive_message", (data) => {
       console.log(data);
+      setMessages((messages) => [
+        ...messages,
+        {
+          ...data,
+          createdAt: new Date(),
+        },
+      ]);
       // setMessagesReceived((state) => [
       //   ...state,
       //   {
@@ -28,17 +36,10 @@ const Messages = ({ socket, messages }) => {
   }
 
   return (
-    <div>
-      {messagesRecieved.map((msg, i) => (
-        <div key={i}>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <span>{msg.username}</span>
-            <span>{formatDateFromTimestamp(msg.__createdtime__)}</span>
-          </div>
-          <p>{msg.message}</p>
-          <br />
-        </div>
-      ))}
+    <div className="overflow-y-scroll min-h-[calc(100%-100px)] max-h-[calc(100%-100px)]">
+      {messages.map((msg) => {
+        return <MessageCard message={msg} key={msg.id} />;
+      })}
     </div>
   );
 };

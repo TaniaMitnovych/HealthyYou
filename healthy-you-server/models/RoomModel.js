@@ -8,8 +8,7 @@ const Room = sequelize.define("Room", {
     defaultValue: Sequelize.UUIDV4,
     primaryKey: true,
   },
-  userIds: {
-    type: DataTypes.ARRAY(DataTypes.UUID),
-  },
 });
+
+//Room.sync({ force: true });
 module.exports = Room;
