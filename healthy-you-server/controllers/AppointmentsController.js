@@ -2,6 +2,10 @@ const Schedule = require("../models/ScheduleModel");
 const Appointment = require("../models/AppointmentModel");
 
 const { Op } = require("sequelize");
+const newAppointmentLetter = require("../letters/newAppointmentLetter");
+const User = require("../models/UserModel");
+const Doctor = require("../models/DoctorModel");
+const appointmentReminder = require("../letters/appointmentReminder");
 
 async function getPatientsAppointments(req, res) {
   try {
@@ -43,6 +47,15 @@ async function createAppointment(req, res) {
       doctorId,
       patientId,
     });
+    if (appointment) {
+      const patient = await User.findOne({ where: { id: patientId } });
+      const doctor = await Doctor.findOne({
+        where: { id: doctorId },
+        include: [User],
+      });
+      newAppointmentLetter(doctor.User, patient, from);
+      appointmentReminder(doctor.User, patient, from);
+    }
     res.json(appointment);
   } catch (error) {
     res.status(500).json({ message: error.message });

@@ -2,7 +2,6 @@ const Role = require("../models/RoleModel");
 const User = require("../models/UserModel");
 const { cleanUp } = require("../utils/helpers");
 
-// Controller for creating a new user
 async function createUser(req, res) {
   try {
     const {
@@ -31,7 +30,6 @@ async function createUser(req, res) {
   }
 }
 
-// Controller for fetching all users
 async function getUsers(req, res) {
   try {
     const users = await User.findAll({
@@ -43,7 +41,6 @@ async function getUsers(req, res) {
   }
 }
 
-// Controller for fetching a single user by id
 async function getUserById(req, res) {
   const { id } = req.params;
   try {
@@ -57,7 +54,6 @@ async function getUserById(req, res) {
   }
 }
 
-// Controller for updating a user by id
 async function updateUser(req, res) {
   const { id } = req.params;
   try {
@@ -76,7 +72,6 @@ async function updateUser(req, res) {
   }
 }
 
-// Controller for deleting a user by id
 async function deleteUser(req, res) {
   const { id } = req.params;
   try {
