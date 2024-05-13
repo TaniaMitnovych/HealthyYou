@@ -1,4 +1,4 @@
-const transporter = require("../util/mail");
+const transporter = require("../utils/mail");
 
 function sendMail(message) {
   transporter.sendMail(message).catch((err) => {
