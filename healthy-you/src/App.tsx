@@ -15,6 +15,7 @@ function App() {
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <div className="App">
         <Router />
+        <ToastContainer />
       </div>
     </LocalizationProvider>
   );

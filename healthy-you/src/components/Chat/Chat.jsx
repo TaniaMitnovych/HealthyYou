@@ -22,6 +22,7 @@ function Chat({ id }) {
   const [messages, setMessages] = useState([]);
 
   async function joinRoom() {
+    console.log(user.id, id);
     const roomRes = await api.chat.getRoom(user.id, id);
     let roomData = roomRes.data;
     console.log(roomData);
@@ -37,6 +38,7 @@ function Chat({ id }) {
     setMessages(messRes.data);
   }
   useEffect(() => {
+    console.log(id);
     if (id) {
       joinRoom();
     }

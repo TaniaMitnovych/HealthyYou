@@ -1,9 +1,12 @@
 import { useState } from "react";
 import Chat from "../components/Chat/Chat";
 import ChatList from "../components/Chat/ChatList";
+import { useParams } from "react-router-dom";
 
 function ChatPage() {
-  const [selectedChat, setChat] = useState();
+  const { id } = useParams();
+  console.log(id);
+  const [selectedChat, setChat] = useState(id);
   return (
     <div>
       <h2>Chat</h2>

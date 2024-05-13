@@ -42,14 +42,10 @@ function DoctorsFilterbar() {
       })
       .then((res: any) => {
         dispatch(setDoctors(res.data));
-      })
-      .then(() => {
-        console.log(doctorsList);
       });
   }, [specialty, minExperience, maxExperience, sex]);
 
   useEffect(() => {
-    console.log(doctors);
     setDoctorsList(doctors.doctors);
   }, [doctors]);
 
@@ -57,7 +53,7 @@ function DoctorsFilterbar() {
     console.log(doctorsList);
   }, [doctorsList]);
   return (
-    <section className="w-1/3 p-5">
+    <section className="p-5">
       <Typography variant="h5" display="block" gutterBottom>
         Filters
       </Typography>
