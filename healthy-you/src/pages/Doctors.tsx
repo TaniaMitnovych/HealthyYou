@@ -13,7 +13,7 @@ function Doctors() {
     setDoctorsList(doctors);
   }, [doctors]);
   return (
-    <div className="flex w-full gap-5">
+    <div className="flex w-full gap-5 gradient h-full pt-5">
       <div className="w-1/4 ml-10">
         <DoctorsFilterbar />
       </div>

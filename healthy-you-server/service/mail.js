@@ -1,9 +1,12 @@
-const transporter = require("../utils/mail");
+const nodeMailer = require("nodemailer");
 
-function sendMail(message) {
-  transporter.sendMail(message).catch((err) => {
-    console.error(err);
-  });
-}
+let config = {
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL_ADDRESS,
+    pass: process.env.EMAIL_PASSWORD,
+  },
+};
+let transporter = nodeMailer.createTransport(config);
 
-module.exports = { sendMail };
+module.exports = transporter;

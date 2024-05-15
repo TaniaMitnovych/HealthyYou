@@ -4,7 +4,8 @@
     "doctor": "I am a doctor",
     "signup": "Sign up",
     "login": "Log in",
-    "haveAccount": "Already have an account"
+    "haveAccount": "Already have an account",
+    "dontHaveAccount": "Don't have an account"
   },
   "firstName": "First name",
   "lastName": "Last name",

@@ -48,9 +48,9 @@ function SignUp() {
       });
   };
   return (
-    <div className="flex justify-center items-center w-full h-screen bg-indigo-300">
+    <div className="flex justify-center items-center w-full h-screen bg-indigo-300 gradient">
       <div className="w-1/3 flex flex-col items-center bg-white p-10 rounded-md">
-        <h2>{t("signup.login")}</h2>
+        <h2 className="text-3xl mb-4 text-gray-500">{t("signup.signup")}</h2>
         <Formik
           initialValues={{
             firstName: "",
@@ -159,7 +159,9 @@ function SignUp() {
                   )}
               </div>
               <div className="mt-6 w-full flex justify-between">
-                <Button variant="outlined">{t("signup.haveAccount")}</Button>
+                <Button variant="outlined" onClick={() => navigate("/login")}>
+                  {t("signup.haveAccount")}
+                </Button>
                 <Button variant="contained" type="submit">
                   {t("signup.signup")}
                 </Button>

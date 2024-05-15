@@ -38,7 +38,7 @@ module.exports.Login = async (req, res, next) => {
     if (!email || !password) {
       return res.status(401).json({ message: "All fields are required" });
     }
-    const user = await User.findOne({ where: { email } });
+    const user = await User.findOne({ where: { email }, include: [Role] });
     if (!user) {
       return res.status(401).json({ message: "Incorrect password or email" });
     }

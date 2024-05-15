@@ -69,14 +69,10 @@ sequelize
   .catch((e) => console.log("Connection error: ", e));
 
 io.on("connection", (socket) => {
-  console.log(`User connected ${socket.id}`);
-
   socket.on("join_room", (data) => {
-    const { roomId } = data; // Data sent from client when join_room event emitted
-    socket.join(roomId); // Join the user to a socket room
-    console.log("User joined");
+    const { roomId } = data;
+    socket.join(roomId);
     socket.on("send_message", (data) => {
-      console.log(data);
       addMessage(data);
       io.in(roomId).emit("receive_message", data);
     });
@@ -85,20 +81,9 @@ io.on("connection", (socket) => {
       socket.leave(roomId);
     });
   });
-
-  // We can write our socket event listeners in here...
 });
 
 app.post("/email", (req, res) => {
-  let config = {
-    service: "gmail", // your email domain
-    auth: {
-      user: process.env.EMAIL_ADDRESS, // your email address
-      pass: process.env.EMAIL_PASSWORD,
-      //pass: "yrio kjgu hgbv feha", // your password
-    },
-  };
-  let transporter = nodeMailer.createTransport(config);
   let message = {
     from: "taniamitnovych15@gmail.com", // sender address
     to: "tetiana.mitnovych.pz.2020@lpnu.ua", // list of receivers

@@ -5,7 +5,11 @@ function filterDoctors(filters: any) {
     params: filters,
   });
 }
+function getDoctorByUserId(id: string) {
+  return axios.get(`/doctor/${id}`);
+}
 
 export default {
   filterDoctors,
+  getDoctorByUserId,
 };

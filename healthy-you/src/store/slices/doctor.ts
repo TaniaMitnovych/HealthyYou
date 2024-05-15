@@ -9,9 +9,6 @@ export const doctorSlice = createSlice({
   initialState,
   reducers: {
     setDoctors(state, action) {
-      console.log(action);
-      //state.doctors = action.payload;
-      console.log(current(state));
       return {
         ...state,
         doctors: action.payload,

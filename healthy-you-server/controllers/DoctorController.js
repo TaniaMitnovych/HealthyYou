@@ -19,8 +19,13 @@ async function getDoctor(req, res) {
   try {
     const { id } = req.params;
     const doctor = await Doctor.findOne({
-      id,
-      include: [User, Specialty],
+      include: {
+        model: User,
+        where: {
+          id: id,
+        },
+        Specialty,
+      },
     });
     if (doctor) {
       return res.status(200).json(doctor);

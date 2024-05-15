@@ -28,7 +28,6 @@ function appointmentReminder(doctor, patient, fromTime) {
   };
   const remiderDateTime = dayjs(fromTime).subtract(1, "day").toISOString();
   const options = getCronOptionString(remiderDateTime);
-  console.log(options);
   cron.schedule(options, () => {
     sendMail(patientMessage);
     sendMail(doctorMessage);

@@ -11,8 +11,9 @@ import { Button } from "@mui/material";
 import api from "../api";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { setUser } from "../store/slices/user";
+import { setDoctor, setUser } from "../store/slices/user";
 import { useDispatch, useSelector } from "react-redux";
+import { isDoctor } from "../utils/helpers";
 
 function LoginForm() {
   const SignupSchema = Yup.object().shape({
@@ -33,13 +34,24 @@ function LoginForm() {
       })
       .then((res: any) => {
         dispatch(setUser(res.data.user));
+        if (isDoctor(res.data.user.Role.title)) {
+          return api.doctors.getDoctorByUserId(res.data.user.id);
+        }
+      })
+      .then((res: any) => {
+        if (res.data) {
+          dispatch(setDoctor(res.data));
+        }
         navigate("/");
+      })
+      .then(() => {
+        console.log(user);
       });
   };
   return (
-    <div className="flex justify-center items-center w-full h-screen bg-indigo-300">
+    <div className="flex justify-center items-center w-full h-screen bg-indigo-300 gradient">
       <div className="w-1/3 flex flex-col items-center bg-white p-10 rounded-md">
-        <h2>{t("signup.login")}</h2>
+        <h2 className="text-3xl mb-4 text-gray-500">{t("signup.login")}</h2>
         <Formik
           initialValues={{
             email: "",
@@ -80,7 +92,9 @@ function LoginForm() {
                 )}
               </div>
               <div className="mt-6 w-full flex justify-between">
-                <Button variant="outlined">{t("signup.haveAccount")}</Button>
+                <Button variant="outlined" onClick={() => navigate("/signup")}>
+                  {t("signup.dontHaveAccount")}
+                </Button>
                 <Button variant="contained" type="submit">
                   {t("signup.login")}
                 </Button>

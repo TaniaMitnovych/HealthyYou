@@ -45,7 +45,7 @@ function Chat({ id }) {
   }, [id]);
 
   return (
-    <div className="h-full">
+    <div className="h-full flex items-center justify-center">
       {id ? (
         <div className="w-full h-full">
           <div className="pl-5 pb-3 border-0 border-b font-bold text-lg">{`${room.firstName} ${room.lastName}`}</div>
@@ -57,7 +57,9 @@ function Chat({ id }) {
           <SendMessage socket={socket} userId={id} roomId={room.RoomId} />
         </div>
       ) : (
-        <div>Nothing found</div>
+        <div className="w-full text-center my-auto">
+          Choose a chat to start a converstion
+        </div>
       )}
     </div>
   );

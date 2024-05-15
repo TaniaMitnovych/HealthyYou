@@ -11,7 +11,7 @@ function newAppointmentLetter(doctor, patient, fromTime) {
     <div>Doctor: ${doctor.firstName} ${doctor.lastName}</div>
     <div>Date and time: ${dayjs(fromTime).format(
       "HH:mm, dddd, DD MMMM, YYYY"
-    )}</div>`, // html body
+    )}</div>`,
   };
   let doctorMessage = {
     from: "healthy.you.mailer@gmail.com", // sender address

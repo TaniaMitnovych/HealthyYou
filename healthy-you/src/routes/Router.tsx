@@ -7,18 +7,23 @@ import Chat from "../components/Chat/Chat.jsx";
 import ChatList from "../components/Chat/ChatList";
 import ChatPage from "../pages/ChatPage";
 import Doctors from "../pages/Doctors";
+import Layout from "../pages/Layout";
+import AppointmentPage from "../pages/AppointmentPage";
 
 function Router() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/" element={<Main />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/info" element={<AdditionalInfoForm />} />
-        <Route path="/chat/:id" element={<ChatPage />} />
-        <Route path="/chat" element={<ChatPage />} />
-        <Route path="/doctors" element={<Doctors />} />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Main />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/info" element={<AdditionalInfoForm />} />
+          <Route path="/chat/:id" element={<ChatPage />} />
+          <Route path="/chat" element={<ChatPage />} />
+          <Route path="/doctors" element={<Doctors />} />
+          <Route path="/appointments" element={<AppointmentPage />} />
+        </Route>
       </Routes>
     </div>
   );

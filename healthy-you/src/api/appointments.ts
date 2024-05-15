@@ -15,7 +15,16 @@ function createAppointment(payload: any) {
     ...payload,
   });
 }
+
+function getDoctorsAppointments(id: string) {
+  return axios.get(`/appointment/doctor/${id}`);
+}
+function getPatientsAppointments(id: string) {
+  return axios.get(`/appointment/patient/${id}`);
+}
 export default {
   getScheduleWithAppointments,
   createAppointment,
+  getDoctorsAppointments,
+  getPatientsAppointments,
 };
