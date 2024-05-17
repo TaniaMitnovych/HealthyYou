@@ -16,6 +16,10 @@ async function getPatientsAppointments(req, res) {
           [Op.eq]: id,
         },
       },
+      include: {
+        model: Doctor,
+        include: [User],
+      },
     });
     res.json(appointments);
   } catch (error) {
@@ -31,6 +35,7 @@ async function getDoctorsAppointments(req, res) {
           [Op.eq]: id,
         },
       },
+      include: [User],
     });
     res.json(appointments);
   } catch (error) {
@@ -48,6 +53,7 @@ async function createAppointment(req, res) {
       patientId,
     });
     if (appointment) {
+      console.error(appointment);
       const patient = await User.findOne({ where: { id: patientId } });
       const doctor = await Doctor.findOne({
         where: { id: doctorId },

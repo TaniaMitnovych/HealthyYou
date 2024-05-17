@@ -1,9 +1,10 @@
-const { sendMail } = require("../service/mail");
+const { sendMail } = require("../utils/mail");
 const dayjs = require("dayjs");
 const cron = require("node-cron");
 const { getCronOptionString } = require("../utils/helpers");
 
 function appointmentReminder(doctor, patient, fromTime) {
+  console.log(fromTime);
   let patientMessage = {
     from: "healthy.you.mailer@gmail.com", // sender address
     //to: patient.email, // list of receivers
@@ -28,6 +29,7 @@ function appointmentReminder(doctor, patient, fromTime) {
   };
   const remiderDateTime = dayjs(fromTime).subtract(1, "day").toISOString();
   const options = getCronOptionString(remiderDateTime);
+  console.error("HERE");
   cron.schedule(options, () => {
     sendMail(patientMessage);
     sendMail(doctorMessage);

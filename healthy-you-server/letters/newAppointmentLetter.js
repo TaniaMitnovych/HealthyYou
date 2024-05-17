@@ -1,4 +1,4 @@
-const { sendMail } = require("../service/mail");
+const { sendMail } = require("../utils/mail");
 const dayjs = require("dayjs");
 
 function newAppointmentLetter(doctor, patient, fromTime) {
@@ -24,6 +24,7 @@ function newAppointmentLetter(doctor, patient, fromTime) {
       "HH:mm, dddd, DD MMMM, YYYY"
     )}</div>`, // html body
   };
+  console.log(fromTime);
   sendMail(patientMessage);
   sendMail(doctorMessage);
 }

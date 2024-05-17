@@ -39,7 +39,7 @@ function LoginForm() {
         }
       })
       .then((res: any) => {
-        if (res.data) {
+        if (res && res.data) {
           dispatch(setDoctor(res.data));
         }
         navigate("/");
