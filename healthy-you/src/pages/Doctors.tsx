@@ -11,14 +11,12 @@ import api from "../api";
 function Doctors() {
   const [searchParams, setSearchParams] = useSearchParams();
   const doctors = useSelector((state: any) => state.doctors.doctors);
-  console.log(doctors);
   const [doctorsList, setDoctorsList] = useState(doctors.length ? doctors : []);
   const [searchQuery, setSearchQuery] = useState(
     searchParams.get("query") ?? ""
   );
 
   useEffect(() => {
-    console.log(doctors);
     setDoctorsList(doctors);
   }, [doctors]);
 
@@ -33,13 +31,14 @@ function Doctors() {
     searchDoctorsThrottled(searchQuery);
   }, [searchQuery]);
   return (
-    <div className="flex w-full gap-5 gradient h-full pt-5">
+    <div className="flex w-full gap-5 gradient min-h-full pt-5">
       <div className="w-1/4 ml-10">
         <DoctorsFilterbar />
       </div>
       <div className="w-3/4 mr-10 mt-5">
         <div className="flex gap-2 mb-10">
           <TextField
+            placeholder="Search doctors"
             value={searchQuery}
             className="w-full"
             onChange={(e) => setSearchQuery(e.target.value)}

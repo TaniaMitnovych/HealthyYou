@@ -1,6 +1,7 @@
 const Role = require("../models/RoleModel");
 const User = require("../models/UserModel");
 const { cleanUp } = require("../utils/helpers");
+const { Op } = require("sequelize");
 
 async function createUser(req, res) {
   try {
@@ -87,10 +88,28 @@ async function deleteUser(req, res) {
   }
 }
 
+async function getUserByName(req, res) {
+  try {
+    const { query } = req.query;
+    const users = await User.findAll({
+      where: {
+        [Op.or]: [
+          { firstName: { [Op.iLike]: `%${query}%` } },
+          { lastName: { [Op.iLike]: `%${query}%` } },
+        ],
+      },
+    });
+    return res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
 module.exports = {
   createUser,
   getUsers,
   getUserById,
   updateUser,
   deleteUser,
+  getUserByName,
 };

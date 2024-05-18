@@ -5,6 +5,7 @@ import specialties from "./specialties";
 import doctors from "./doctors";
 import chat from "./chat";
 import appointments from "./appointments";
+import patients from "./patients";
 import { BASE_URL } from "../env";
 
 axios.defaults.baseURL = BASE_URL;
@@ -16,5 +17,6 @@ const api = {
   doctors,
   chat,
   appointments,
+  patients,
 };
 export default api;

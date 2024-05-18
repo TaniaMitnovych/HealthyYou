@@ -13,15 +13,13 @@ function ChatList({ setChat }) {
     });
   }, []);
   return (
-    <div>
-      <section>
-        <ul>
-          {chatList.map((chat) => {
-            return <ChatCard chat={chat} key={chat.id} setChat={setChat} />;
-          })}
-        </ul>
-      </section>
-    </div>
+    <section className="h-full">
+      <ul className="h-full overflow-y-auto">
+        {chatList.map((chat) => {
+          return <ChatCard chat={chat} key={chat.id} setChat={setChat} />;
+        })}
+      </ul>
+    </section>
   );
 }
 export default ChatList;

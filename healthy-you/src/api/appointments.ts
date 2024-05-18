@@ -22,9 +22,13 @@ function getDoctorsAppointments(id: string) {
 function getPatientsAppointments(id: string) {
   return axios.get(`/appointment/patient/${id}`);
 }
+function getSchedule(doctorId: string) {
+  return axios.get(`/schedule/${doctorId}`);
+}
 export default {
   getScheduleWithAppointments,
   createAppointment,
   getDoctorsAppointments,
   getPatientsAppointments,
+  getSchedule,
 };

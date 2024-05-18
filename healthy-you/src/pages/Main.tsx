@@ -15,25 +15,8 @@ const Main = () => {
   const [cookies, removeCookie] = useCookies(["token"]);
   const [searchQuery, setSearchQuery] = useState("");
   const user = useSelector((state: any) => state.user);
-  const [searchParams, setSearchParams] = useSearchParams();
-  useEffect(() => {
-    console.log(user);
-    const verifyCookie = async () => {
-      console.log(cookies.token);
-      if (!cookies.token) {
-        navigate("/login");
-      }
-      const { data } = await api.auth.verifyUser();
-      const { status } = data;
-      return (
-        status ?? (removeCookie("token", { path: "/" }), navigate("/login"))
-      );
-    };
-    verifyCookie();
-  }, [cookies]);
 
   const navigateToDoctors = () => {
-    //setSearchParams({ query: searchQuery });
     navigate(`/doctors?query=${searchQuery}`);
   };
   return (
@@ -44,6 +27,7 @@ const Main = () => {
         </div>
         <div className="h-1/2 flex gap-2">
           <TextField
+            placeholder="Search doctors"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full"
