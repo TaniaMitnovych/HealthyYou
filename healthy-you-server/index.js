@@ -45,7 +45,7 @@ server.listen(PORT, () => {
 const io = new Server(server, {
   cors: {
     origin: "http://localhost:3000",
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   },
 });
 io.use((socket, next) => {
@@ -54,7 +54,7 @@ io.use((socket, next) => {
 app.use(
   cors({
     origin: ["http://localhost:3000"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
   })
 );
@@ -71,6 +71,7 @@ sequelize
 io.on("connection", (socket) => {
   socket.on("join_room", (data) => {
     const { roomId } = data;
+    console.log("JOINED", roomId);
     socket.join(roomId);
     socket.on("send_message", (data) => {
       addMessage(data);
@@ -78,6 +79,7 @@ io.on("connection", (socket) => {
     });
     socket.on("leave_room", (data) => {
       const { roomId } = data;
+      console.log("LEFT", roomId);
       socket.leave(roomId);
     });
   });

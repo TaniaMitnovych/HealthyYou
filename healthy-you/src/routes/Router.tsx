@@ -11,6 +11,7 @@ import Layout from "../pages/Layout";
 import AppointmentPage from "../pages/AppointmentPage";
 import Patients from "../pages/Patients";
 import Schedule from "../pages/Schedule";
+import DoctorsAdditionalInfo from "../components/DoctorsAdditionalInfo";
 
 function Router() {
   return (
@@ -28,6 +29,7 @@ function Router() {
         </Route>
         <Route path="/login" element={<LoginForm />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/doctors/info" element={<DoctorsAdditionalInfo />} />
       </Routes>
     </div>
   );

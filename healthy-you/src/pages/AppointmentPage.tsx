@@ -32,13 +32,19 @@ function AppointmentPage() {
     }
   }, []);
   return (
-    <div className="gradient p-10">
+    <div className="gradient p-10 min-h-full">
       <div className="flex flex-col gap-2 ">
-        {appointments.map((appointment: any) => {
-          return (
-            <AppointmentCard appointment={appointment} key={appointment.id} />
-          );
-        })}
+        {appointments.length ? (
+          appointments.map((appointment: any) => {
+            return (
+              <AppointmentCard appointment={appointment} key={appointment.id} />
+            );
+          })
+        ) : (
+          <div className="text-center text-gray-400 mt-10">
+            You have not had any appointments yet
+          </div>
+        )}
       </div>
     </div>
   );

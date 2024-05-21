@@ -39,6 +39,10 @@ function Chat({ id }) {
   }
   useEffect(() => {
     console.log(id);
+    console.log(room);
+    if (room) {
+      socket.emit("leave_room", { roomId: room.RoomId });
+    }
     if (id) {
       joinRoom();
     }
@@ -58,7 +62,7 @@ function Chat({ id }) {
         </div>
       ) : (
         <div className="w-full text-center my-auto">
-          Choose a chat to start a converstion
+          Choose a chat to start a conversation
         </div>
       )}
     </div>

@@ -35,14 +35,16 @@ function LoginForm() {
       .then((res: any) => {
         dispatch(setUser(res.data.user));
         if (isDoctor(res.data.user.Role.title)) {
+          navigate("/appointments");
           return api.doctors.getDoctorByUserId(res.data.user.id);
+        } else {
+          navigate("/");
         }
       })
       .then((res: any) => {
         if (res && res.data) {
           dispatch(setDoctor(res.data));
         }
-        navigate("/");
       })
       .then(() => {
         console.log(user);
@@ -64,9 +66,9 @@ function LoginForm() {
         >
           {({ errors, touched, values, handleChange }) => (
             <Form className="w-full">
-              <div className="w-full flex flex-col gap-2 mt-4 px-2 text-red-500">
+              <div className="w-full flex flex-col gap-5 mt-4 px-2 text-red-500">
                 <TextField
-                  variant={"standard"}
+                  variant={"outlined"}
                   fullWidth
                   placeholder={t("email")}
                   label={t("email")}
@@ -77,7 +79,7 @@ function LoginForm() {
                 />
                 {touched.email && errors.email && <div>{errors.email}</div>}
                 <TextField
-                  variant={"standard"}
+                  variant={"outlined"}
                   fullWidth
                   placeholder={t("password")}
                   label={t("password")}

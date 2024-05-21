@@ -64,7 +64,10 @@ async function updateUser(req, res) {
       where: { id },
     });
     if (updated) {
-      const updatedUser = await User.findByPk(id);
+      const updatedUser = await User.findOne({
+        where: { id },
+        include: [Role],
+      });
       return res.status(200).json(updatedUser);
     }
     throw new Error("User not found");

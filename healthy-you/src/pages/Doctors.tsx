@@ -31,11 +31,11 @@ function Doctors() {
     searchDoctorsThrottled(searchQuery);
   }, [searchQuery]);
   return (
-    <div className="flex w-full gap-5 gradient min-h-full pt-5">
+    <div className="flex w-full gap-5 gradient min-h-full pt-5 max-h-full">
       <div className="w-1/4 ml-10">
         <DoctorsFilterbar />
       </div>
-      <div className="w-3/4 mr-10 mt-5">
+      <div className="w-3/4 mr-10 mt-5 max-h-full">
         <div className="flex gap-2 mb-10">
           <TextField
             placeholder="Search doctors"
@@ -54,10 +54,12 @@ function Doctors() {
             Search
           </Button>
         </div>
-        {doctorsList &&
-          doctorsList?.map?.((doctor: any) => {
-            return <DoctorCard doctor={doctor} />;
-          })}
+        <div className="flex flex-col overflow-y-auto h-[85%]">
+          {doctorsList &&
+            doctorsList?.map?.((doctor: any) => {
+              return <DoctorCard doctor={doctor} />;
+            })}
+        </div>
       </div>
     </div>
   );

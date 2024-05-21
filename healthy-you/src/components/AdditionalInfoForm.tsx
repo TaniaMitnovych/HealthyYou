@@ -23,6 +23,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { setUser } from "../store/slices/user";
 import { useDispatch, useSelector } from "react-redux";
 import { store } from "../store/store";
+import { isDoctor } from "../utils/helpers";
 
 interface CustomProps {
   onChange: (event: { target: { name: string; value: string } }) => void;
@@ -75,13 +76,17 @@ function AdditionalInfoForm() {
       )
       .then((res: any) => {
         dispatch(setUser(res.data));
-        navigate("/");
+        if (isDoctor(user.role)) {
+          navigate("/doctors/info");
+        } else {
+          navigate("/");
+        }
       });
   };
   return (
-    <div className="flex justify-center items-center w-full h-screen bg-indigo-300">
+    <div className="flex justify-center items-center w-full h-screen gradient">
       <div className="w-1/3 flex flex-col items-center bg-white p-10 rounded-md">
-        <h2>{t("signup.login")}</h2>
+        <h2 className="text-3xl mb-4 text-gray-500">Additional info</h2>
         <Formik
           initialValues={{
             sex: "",
@@ -133,7 +138,7 @@ function AdditionalInfoForm() {
                 {touched.sex && errors.sex && <div>{errors.sex}</div>}
               </div>
               <div className="mt-6 w-full flex justify-between px-2">
-                <Button variant="outlined">{t("button.cancel")}</Button>
+                <Button variant="outlined">Skip</Button>
                 <Button variant="contained" type="submit">
                   {t("button.submit")}
                 </Button>

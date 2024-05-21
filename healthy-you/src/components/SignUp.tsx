@@ -12,7 +12,9 @@ import api from "../api";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../store/slices/user";
+import { setDoctor, setUser } from "../store/slices/user";
+import { isDoctor } from "../utils/helpers";
+import { toast } from "react-toastify";
 
 function SignUp() {
   const SignupSchema = Yup.object().shape({
@@ -43,8 +45,23 @@ function SignUp() {
         role: data.role,
       })
       .then((res: any) => {
+        console.log(res);
         dispatch(setUser(res.data.user));
+        if (isDoctor(res.data.user.Role.title)) {
+          return api.doctors.getDoctorByUserId(res.data.user.id);
+        }
+      })
+      .then((res: any) => {
+        console.log(res);
+        if (res && res.data) {
+          dispatch(setDoctor(res.data));
+        }
         navigate("/info");
+      })
+      .catch((res: any) => {
+        toast.error(res.response.data.message, {
+          position: "top-right",
+        });
       });
   };
   return (
@@ -90,9 +107,9 @@ function SignUp() {
                 </ToggleButton>
               </ToggleButtonGroup>
               {touched.role && errors.role && <div>{errors.role}</div>}
-              <div className="w-full flex flex-col gap-2 mt-4 px-2 text-red-500">
+              <div className="w-full flex flex-col gap-5 mt-4 px-2 text-red-500">
                 <TextField
-                  variant={"standard"}
+                  variant={"outlined"}
                   fullWidth
                   placeholder={t("email")}
                   label={t("email")}
@@ -103,7 +120,7 @@ function SignUp() {
                 />
                 {touched.email && errors.email && <div>{errors.email}</div>}
                 <TextField
-                  variant={"standard"}
+                  variant={"outlined"}
                   fullWidth
                   placeholder={t("firstName")}
                   label={t("firstName")}
@@ -116,7 +133,7 @@ function SignUp() {
                   <div>{errors.firstName}</div>
                 )}
                 <TextField
-                  variant={"standard"}
+                  variant={"outlined"}
                   fullWidth
                   placeholder={t("lastName")}
                   label={t("lastName")}
@@ -129,7 +146,7 @@ function SignUp() {
                   <div>{errors.lastName}</div>
                 )}
                 <TextField
-                  variant={"standard"}
+                  variant={"outlined"}
                   fullWidth
                   placeholder={t("password")}
                   label={t("password")}
@@ -143,7 +160,7 @@ function SignUp() {
                   <div>{errors.password}</div>
                 )}
                 <TextField
-                  variant={"standard"}
+                  variant={"outlined"}
                   fullWidth
                   placeholder={t("confirmPassword")}
                   label={t("confirmPassword")}

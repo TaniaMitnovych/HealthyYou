@@ -59,7 +59,7 @@ function NavBar() {
             Patients
           </div>
         )}
-        <div onClick={logout}>Logout</div>
+        <div onClick={logout}>Log out</div>
       </div>
     </div>
   );

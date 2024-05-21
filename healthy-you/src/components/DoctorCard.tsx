@@ -11,14 +11,14 @@ function DoctorCard({ doctor }: { doctor: any }) {
       <div className="text-2xl">
         {`${doctor.User.firstName} ${doctor.User.lastName}`}
         <span className="text-gray-500 text-base ml-3">
-          {doctor.Specialty.title}
+          {doctor?.Specialty?.title}
         </span>
       </div>
 
       {doctor.User.sex && (
         <div className="ml-2 text-gray-500 text-sm">{doctor.User.sex}</div>
       )}
-      {doctor.description && <div>{doctor.desciption}</div>}
+      {doctor.description && <div className="my-2">{doctor.description}</div>}
       <div className="flex gap-4 w-full justify-end">
         <Button variant="contained" onClick={() => setShowDialog(true)}>
           Make an appointment

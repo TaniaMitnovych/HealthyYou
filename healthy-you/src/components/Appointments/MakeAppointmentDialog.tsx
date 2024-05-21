@@ -14,7 +14,7 @@ function MakeAppointmentDialog({
   onCancel: () => void;
 }) {
   const user = useSelector((state: any) => state.user);
-  const [currentDate, setCuttentDate] = useState("2024-05-08T07:00:00.000Z");
+  const [currentDate, setCuttentDate] = useState("2024-05-21T07:00:00.000Z");
   const [schedule, setSchedule] = useState([
     {
       from: "",
@@ -95,7 +95,7 @@ function MakeAppointmentDialog({
   };
 
   return (
-    <div className="absolute w-screen h-screen bg-black bg-opacity-75 z-[100] top-0 left-0 flex justify-center items-center">
+    <div className="absolute w-full h-full bg-black bg-opacity-75 z-[100] top-0 left-0 flex justify-center items-center">
       <div className="w-2/3 bg-white rounded-3xl h-3/4 p-8 box-border relative">
         <h2 className="font-bold tracking-wider text-2xl ml-4 mb-6">
           Appointments
