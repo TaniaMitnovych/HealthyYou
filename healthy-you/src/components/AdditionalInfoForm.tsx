@@ -1,9 +1,6 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import userRoles from "../constants/UserRoles";
-import TextField from "@mui/material/TextField";
-import { IUser } from "../types/User";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import {
   Button,
@@ -14,15 +11,14 @@ import {
   Select,
 } from "@mui/material";
 import api from "../api";
-import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { IMaskInput } from "react-imask";
 import React from "react";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import dayjs, { Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
 import { setUser } from "../store/slices/user";
 import { useDispatch, useSelector } from "react-redux";
-import { store } from "../store/store";
+import { isDoctor } from "../utils/helpers";
 
 interface CustomProps {
   onChange: (event: { target: { name: string; value: string } }) => void;
@@ -63,7 +59,6 @@ function AdditionalInfoForm() {
   const user = useSelector((state: any) => state.user);
 
   const submit = (data: any) => {
-    console.log(user);
     api.user
       .updateUser(
         {
@@ -75,13 +70,17 @@ function AdditionalInfoForm() {
       )
       .then((res: any) => {
         dispatch(setUser(res.data));
-        navigate("/");
+        if (isDoctor(user.role)) {
+          navigate("/doctors/info");
+        } else {
+          navigate("/");
+        }
       });
   };
   return (
-    <div className="flex justify-center items-center w-full h-screen bg-indigo-300">
+    <div className="flex justify-center items-center w-full h-screen gradient">
       <div className="w-1/3 flex flex-col items-center bg-white p-10 rounded-md">
-        <h2>{t("signup.login")}</h2>
+        <h2 className="text-3xl mb-4 text-gray-500">Additional info</h2>
         <Formik
           initialValues={{
             sex: "",
@@ -133,7 +132,7 @@ function AdditionalInfoForm() {
                 {touched.sex && errors.sex && <div>{errors.sex}</div>}
               </div>
               <div className="mt-6 w-full flex justify-between px-2">
-                <Button variant="outlined">{t("button.cancel")}</Button>
+                <Button variant="outlined">Skip</Button>
                 <Button variant="contained" type="submit">
                   {t("button.submit")}
                 </Button>

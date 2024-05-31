@@ -11,7 +11,8 @@ function getRooms(id: string) {
 }
 function createRoom(currentUserId: string, userId: string) {
   return axios.post("/chat", {
-    body: { currentUserId, userId },
+    currentUserId,
+    userId,
   });
 }
 function getMessages(roomId: string) {

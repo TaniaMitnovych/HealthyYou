@@ -1,8 +1,8 @@
 const Role = require("../models/RoleModel");
 const User = require("../models/UserModel");
 const { cleanUp } = require("../utils/helpers");
+const { Op } = require("sequelize");
 
-// Controller for creating a new user
 async function createUser(req, res) {
   try {
     const {
@@ -31,7 +31,6 @@ async function createUser(req, res) {
   }
 }
 
-// Controller for fetching all users
 async function getUsers(req, res) {
   try {
     const users = await User.findAll({
@@ -43,7 +42,6 @@ async function getUsers(req, res) {
   }
 }
 
-// Controller for fetching a single user by id
 async function getUserById(req, res) {
   const { id } = req.params;
   try {
@@ -57,17 +55,18 @@ async function getUserById(req, res) {
   }
 }
 
-// Controller for updating a user by id
 async function updateUser(req, res) {
   const { id } = req.params;
   try {
     const userdata = cleanUp(req.body);
-    console.log(userdata);
     const [updated] = await User.update(userdata, {
       where: { id },
     });
     if (updated) {
-      const updatedUser = await User.findByPk(id);
+      const updatedUser = await User.findOne({
+        where: { id },
+        include: [Role],
+      });
       return res.status(200).json(updatedUser);
     }
     throw new Error("User not found");
@@ -76,7 +75,6 @@ async function updateUser(req, res) {
   }
 }
 
-// Controller for deleting a user by id
 async function deleteUser(req, res) {
   const { id } = req.params;
   try {
@@ -92,10 +90,28 @@ async function deleteUser(req, res) {
   }
 }
 
+async function getUserByName(req, res) {
+  try {
+    const { query } = req.query;
+    const users = await User.findAll({
+      where: {
+        [Op.or]: [
+          { firstName: { [Op.iLike]: `%${query}%` } },
+          { lastName: { [Op.iLike]: `%${query}%` } },
+        ],
+      },
+    });
+    return res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
 module.exports = {
   createUser,
   getUsers,
   getUserById,
   updateUser,
   deleteUser,
+  getUserByName,
 };

@@ -19,13 +19,15 @@ async function getDoctor(req, res) {
   try {
     const { id } = req.params;
     const doctor = await Doctor.findOne({
-      id,
-      include: [User, Specialty],
+      include: {
+        model: User,
+        where: {
+          id: id,
+        },
+        Specialty,
+      },
     });
-    if (doctor) {
-      return res.status(200).json(doctor);
-    }
-    res.status(204);
+    res.json(doctor);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -44,14 +46,13 @@ async function getAllDoctors(req, res) {
 async function updateDoctor(req, res) {
   const { id } = req.params;
   try {
-    const [updated] = await Doctor.update(req.body, {
+    const updated = await Doctor.update(req.body, {
       where: { id },
     });
     if (updated) {
       const updatedDoctor = await Doctor.findByPk(id);
       return res.json(updatedDoctor);
     }
-    throw new Error("Doctor not found");
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

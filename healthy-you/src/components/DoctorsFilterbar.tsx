@@ -6,7 +6,7 @@ import InputLabel from "@mui/material/InputLabel";
 import api from "../api";
 import { useDispatch, useSelector } from "react-redux";
 import { setDoctors } from "../store/slices/doctor";
-import { Divider, TextField, Typography } from "@mui/material";
+import { Button, Divider, TextField, Typography } from "@mui/material";
 
 function DoctorsFilterbar() {
   const doctors = useSelector((state: any) => state.doctors);
@@ -15,8 +15,8 @@ function DoctorsFilterbar() {
   const [specialty, setSpecialty] = useState<string>("");
   const [specialtyList, setSpecialtyList] = useState([]);
   const [doctorsList, setDoctorsList] = useState<Array<any>>(doctors);
-  const [minExperience, setMinExperience] = useState<number>();
-  const [maxExperience, setMaxExperience] = useState<number>();
+  const [minExperience, setMinExperience] = useState<number>(0);
+  const [maxExperience, setMaxExperience] = useState<number>(70);
   const [sex, setSex] = useState<string>("");
 
   const handleSpecialtyChange = (event: SelectChangeEvent) => {
@@ -25,7 +25,6 @@ function DoctorsFilterbar() {
   const handleSexChange = (event: SelectChangeEvent) => {
     setSex(event.target.value as string);
   };
-
   useEffect(() => {
     api.specialties.getSpecialties().then((res) => {
       setSpecialtyList(res.data);
@@ -42,22 +41,21 @@ function DoctorsFilterbar() {
       })
       .then((res: any) => {
         dispatch(setDoctors(res.data));
-      })
-      .then(() => {
-        console.log(doctorsList);
       });
   }, [specialty, minExperience, maxExperience, sex]);
 
   useEffect(() => {
-    console.log(doctors);
     setDoctorsList(doctors.doctors);
   }, [doctors]);
 
-  useEffect(() => {
-    console.log(doctorsList);
-  }, [doctorsList]);
+  const clearFilters = () => {
+    setSpecialty("");
+    setMinExperience(0);
+    setMaxExperience(70);
+    setSex("");
+  };
   return (
-    <section className="w-1/3 p-5">
+    <section className="pt-5">
       <Typography variant="h5" display="block" gutterBottom>
         Filters
       </Typography>
@@ -124,6 +122,11 @@ function DoctorsFilterbar() {
               </MenuItem>
             </Select>
           </FormControl>
+        </div>
+        <div className="mt-4">
+          <Button variant="contained" className="w-full" onClick={clearFilters}>
+            Clear
+          </Button>
         </div>
       </div>
     </section>

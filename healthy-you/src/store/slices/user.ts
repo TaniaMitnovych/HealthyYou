@@ -10,6 +10,8 @@ const initialState = {
   sex: null,
   phone: null,
   id: null,
+  role: "",
+  doctor: null,
 };
 
 export const userSlice = createSlice({
@@ -17,7 +19,6 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUser(state, action) {
-      console.log(action);
       state.id = action.payload.id;
       state.email = action.payload.email;
       state.firstName = action.payload.firstName;
@@ -25,18 +26,28 @@ export const userSlice = createSlice({
       state.birthDate = action.payload.birthDate ?? null;
       state.sex = action.payload.sex ?? null;
       state.phone = action.payload.phone ?? null;
-      console.log(current(state));
+      state.role = action.payload.Role.title ?? "";
       return state;
     },
-    resetUser(state) {},
+    setDoctor(state, action) {
+      state.doctor = action.payload;
+      return state;
+    },
+    resetUser(state) {
+      state.id = null;
+      state.email = "";
+      state.firstName = "";
+      state.lastName = "";
+      state.birthDate = null;
+      state.sex = null;
+      state.phone = null;
+      return state;
+    },
   },
 });
 
 const { reducer } = userSlice;
 export { reducer as userReducer };
-
-// Action creators are generated for each case reducer function
-//export const getUser = (state: RootState) => state.user;
-export const { setUser, resetUser } = userSlice.actions;
+export const { setUser, resetUser, setDoctor } = userSlice.actions;
 
 export default userSlice.reducer;

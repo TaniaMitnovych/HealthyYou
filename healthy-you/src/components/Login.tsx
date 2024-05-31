@@ -1,18 +1,13 @@
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
-import userRoles from "../constants/UserRoles";
 import TextField from "@mui/material/TextField";
-import { IUser } from "../types/User";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { Button } from "@mui/material";
 import api from "../api";
-import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { setUser } from "../store/slices/user";
-import { useDispatch, useSelector } from "react-redux";
+import { setDoctor, setUser } from "../store/slices/user";
+import { useDispatch } from "react-redux";
+import { isDoctor } from "../utils/helpers";
 
 function LoginForm() {
   const SignupSchema = Yup.object().shape({
@@ -20,10 +15,8 @@ function LoginForm() {
     password: Yup.string().min(8).required("Password is required"),
   });
   const { t } = useTranslation();
-  const { updateUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state: any) => state.user);
 
   const submit = (email: string, password: string) => {
     api.auth
@@ -33,13 +26,23 @@ function LoginForm() {
       })
       .then((res: any) => {
         dispatch(setUser(res.data.user));
-        navigate("/");
+        if (isDoctor(res.data.user.Role.title)) {
+          navigate("/appointments");
+          return api.doctors.getDoctorByUserId(res.data.user.id);
+        } else {
+          navigate("/");
+        }
+      })
+      .then((res: any) => {
+        if (res && res.data) {
+          dispatch(setDoctor(res.data));
+        }
       });
   };
   return (
-    <div className="flex justify-center items-center w-full h-screen bg-indigo-300">
+    <div className="flex justify-center items-center w-full h-screen bg-indigo-300 gradient">
       <div className="w-1/3 flex flex-col items-center bg-white p-10 rounded-md">
-        <h2>{t("signup.login")}</h2>
+        <h2 className="text-3xl mb-4 text-gray-500">{t("signup.login")}</h2>
         <Formik
           initialValues={{
             email: "",
@@ -52,9 +55,9 @@ function LoginForm() {
         >
           {({ errors, touched, values, handleChange }) => (
             <Form className="w-full">
-              <div className="w-full flex flex-col gap-2 mt-4 px-2 text-red-500">
+              <div className="w-full flex flex-col gap-5 mt-4 px-2 text-red-500">
                 <TextField
-                  variant={"standard"}
+                  variant={"outlined"}
                   fullWidth
                   placeholder={t("email")}
                   label={t("email")}
@@ -65,7 +68,7 @@ function LoginForm() {
                 />
                 {touched.email && errors.email && <div>{errors.email}</div>}
                 <TextField
-                  variant={"standard"}
+                  variant={"outlined"}
                   fullWidth
                   placeholder={t("password")}
                   label={t("password")}
@@ -80,7 +83,9 @@ function LoginForm() {
                 )}
               </div>
               <div className="mt-6 w-full flex justify-between">
-                <Button variant="outlined">{t("signup.haveAccount")}</Button>
+                <Button variant="outlined" onClick={() => navigate("/signup")}>
+                  {t("signup.dontHaveAccount")}
+                </Button>
                 <Button variant="contained" type="submit">
                   {t("signup.login")}
                 </Button>

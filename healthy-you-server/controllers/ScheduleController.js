@@ -1,6 +1,6 @@
 const Schedule = require("../models/ScheduleModel");
 const Appointment = require("../models/AppointmentModel");
-
+const dayjs = require("dayjs");
 const { Op } = require("sequelize");
 
 async function getSchedule(req, res) {
@@ -12,7 +12,7 @@ async function getSchedule(req, res) {
           [Op.eq]: id,
         },
         from: {
-          [Op.gte]: new Date(),
+          [Op.gte]: dayjs().subtract(1, "week").toISOString(),
         },
       },
     });

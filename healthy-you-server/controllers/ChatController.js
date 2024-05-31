@@ -57,7 +57,6 @@ async function createRoom(req, res) {
 async function getMessages(req, res) {
   try {
     const { id } = req.params;
-    //console.log(roomId);
     const messages = await Message.findAll({
       where: {
         roomId: {

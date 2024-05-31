@@ -1,10 +1,9 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 function MessageCard({ message }: { message: any }) {
   const user = useSelector((state: any) => state.user);
 
   const isMine = () => {
-    console.log(user.id, message.fromId);
     return user.id === message.fromId;
   };
   function formatDateFromTimestamp(timestamp: string) {

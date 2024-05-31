@@ -8,7 +8,3 @@ export interface IUser {
   phone?: string | null;
   password?: string | null;
 }
-
-// interface IPatient extends IUser {
-
-// }
