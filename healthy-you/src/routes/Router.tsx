@@ -3,8 +3,6 @@ import LoginForm from "../components/Login";
 import Main from "../pages/Main";
 import SignUp from "../components/SignUp";
 import AdditionalInfoForm from "../components/AdditionalInfoForm";
-import Chat from "../components/Chat/Chat.jsx";
-import ChatList from "../components/Chat/ChatList";
 import ChatPage from "../pages/ChatPage";
 import Doctors from "../pages/Doctors";
 import Layout from "../pages/Layout";
@@ -19,7 +17,6 @@ function Router() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Main />} />
-          <Route path="/info" element={<AdditionalInfoForm />} />
           <Route path="/chat/:id" element={<ChatPage />} />
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/doctors" element={<Doctors />} />
@@ -30,6 +27,7 @@ function Router() {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/doctors/info" element={<DoctorsAdditionalInfo />} />
+        <Route path="/info" element={<AdditionalInfoForm />} />
       </Routes>
     </div>
   );

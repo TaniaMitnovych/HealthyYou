@@ -1,9 +1,6 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import userRoles from "../constants/UserRoles";
-import TextField from "@mui/material/TextField";
-import { IUser } from "../types/User";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import {
   Button,
@@ -14,15 +11,13 @@ import {
   Select,
 } from "@mui/material";
 import api from "../api";
-import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { IMaskInput } from "react-imask";
 import React from "react";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import dayjs, { Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
 import { setUser } from "../store/slices/user";
 import { useDispatch, useSelector } from "react-redux";
-import { store } from "../store/store";
 import { isDoctor } from "../utils/helpers";
 
 interface CustomProps {
@@ -64,7 +59,6 @@ function AdditionalInfoForm() {
   const user = useSelector((state: any) => state.user);
 
   const submit = (data: any) => {
-    console.log(user);
     api.user
       .updateUser(
         {

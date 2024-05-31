@@ -59,7 +59,6 @@ async function updateUser(req, res) {
   const { id } = req.params;
   try {
     const userdata = cleanUp(req.body);
-    console.log(userdata);
     const [updated] = await User.update(userdata, {
       where: { id },
     });

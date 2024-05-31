@@ -29,7 +29,6 @@ module.exports.Signup = async (req, res, next) => {
       where: { id: user.id },
       include: [Role],
     });
-    console.log(user);
     const token = createSecretToken(user.id);
     res.cookie("token", token, {
       withCredentials: true,

@@ -9,7 +9,6 @@ function AppointmentPage() {
   const user = useSelector((state: any) => state.user);
   const [appointments, setAppointments] = useState([]);
   useEffect(() => {
-    console.log(user);
     if (user.role === Roles.DOCTOR) {
       api.appointments
         .getDoctorsAppointments(user.doctor.id)
@@ -19,7 +18,6 @@ function AppointmentPage() {
               return dayjs(b.from).diff(dayjs(a.from));
             })
           );
-          console.log(res.data);
         });
     } else {
       api.appointments.getPatientsAppointments(user.id).then((res: any) => {

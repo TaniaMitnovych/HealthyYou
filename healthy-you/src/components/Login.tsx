@@ -1,18 +1,12 @@
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
-import userRoles from "../constants/UserRoles";
 import TextField from "@mui/material/TextField";
-import { IUser } from "../types/User";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { Button } from "@mui/material";
 import api from "../api";
-import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { setDoctor, setUser } from "../store/slices/user";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { isDoctor } from "../utils/helpers";
 
 function LoginForm() {
@@ -21,10 +15,8 @@ function LoginForm() {
     password: Yup.string().min(8).required("Password is required"),
   });
   const { t } = useTranslation();
-  const { updateUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state: any) => state.user);
 
   const submit = (email: string, password: string) => {
     api.auth
@@ -45,9 +37,6 @@ function LoginForm() {
         if (res && res.data) {
           dispatch(setDoctor(res.data));
         }
-      })
-      .then(() => {
-        console.log(user);
       });
   };
   return (

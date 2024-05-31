@@ -1,6 +1,5 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = require("../db");
-const User = require("./UserModel");
 
 const Room = sequelize.define("Room", {
   id: {
@@ -10,5 +9,4 @@ const Room = sequelize.define("Room", {
   },
 });
 
-//Room.sync({ force: true });
 module.exports = Room;

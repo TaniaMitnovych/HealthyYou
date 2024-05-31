@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../../api";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import ChatCard from "./ChatCard";
 
 function ChatList({ setChat }) {

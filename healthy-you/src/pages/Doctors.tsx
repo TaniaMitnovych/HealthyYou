@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import DoctorsFilterbar from "../components/DoctorsFilterbar";
 import DoctorCard from "../components/DoctorCard";
 import { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { Button, InputAdornment, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { throttle } from "lodash";

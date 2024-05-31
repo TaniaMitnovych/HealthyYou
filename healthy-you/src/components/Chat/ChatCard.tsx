@@ -1,11 +1,8 @@
 import { getUserInitials } from "../../utils/helpers";
-import { useNavigate } from "react-router-dom";
 
 function ChatCard({ chat, setChat }: { chat: any; setChat: any }) {
-  const navigate = useNavigate();
   const initials = getUserInitials(chat.firstName, chat.lastName);
   const onCardClick = () => {
-    //navigate(`/chat/${chat.UserId}`);
     setChat(chat.UserId);
   };
   return (

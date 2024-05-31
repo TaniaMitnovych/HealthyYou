@@ -1,17 +1,14 @@
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import userRoles from "../constants/UserRoles";
 import TextField from "@mui/material/TextField";
-import { IUser } from "../types/User";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { Button } from "@mui/material";
 import api from "../api";
-import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setDoctor, setUser } from "../store/slices/user";
 import { isDoctor } from "../utils/helpers";
 import { toast } from "react-toastify";
@@ -32,9 +29,7 @@ function SignUp() {
   });
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { setToken, updateUser } = useContext(AuthContext);
   const dispatch = useDispatch();
-  const user = useSelector((state: any) => state.user);
   const submit = (data: any) => {
     api.auth
       .signUp({
@@ -45,14 +40,12 @@ function SignUp() {
         role: data.role,
       })
       .then((res: any) => {
-        console.log(res);
         dispatch(setUser(res.data.user));
         if (isDoctor(res.data.user.Role.title)) {
           return api.doctors.getDoctorByUserId(res.data.user.id);
         }
       })
       .then((res: any) => {
-        console.log(res);
         if (res && res.data) {
           dispatch(setDoctor(res.data));
         }

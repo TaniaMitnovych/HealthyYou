@@ -7,7 +7,6 @@ import api from "../api";
 import { useDispatch, useSelector } from "react-redux";
 import { setDoctors } from "../store/slices/doctor";
 import { Button, Divider, TextField, Typography } from "@mui/material";
-import { Slider } from "@mui/base";
 
 function DoctorsFilterbar() {
   const doctors = useSelector((state: any) => state.doctors);
@@ -25,14 +24,6 @@ function DoctorsFilterbar() {
   };
   const handleSexChange = (event: SelectChangeEvent) => {
     setSex(event.target.value as string);
-  };
-  const handleExperienceChange = (
-    event: Event,
-    newValue: number | number[]
-  ) => {
-    if (typeof newValue === "number") {
-      setMinExperience(newValue);
-    }
   };
   useEffect(() => {
     api.specialties.getSpecialties().then((res) => {

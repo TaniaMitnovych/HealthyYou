@@ -2,30 +2,23 @@ import MessagesReceived from "./Messages";
 import { useEffect, useState } from "react";
 import SendMessage from "./SendMessage";
 import api from "../../api";
-import { useDispatch, useSelector } from "react-redux";
-//import socket from "../../socket/socket";
-import io from "socket.io-client"; // Add this
+import { useSelector } from "react-redux";
+import io from "socket.io-client";
 import Cookies from "js-cookie";
-import { useParams } from "react-router-dom";
 
-console.log(Cookies.get("token"));
 const socket = io.connect("http://localhost:4000", {
   query: {
     token: Cookies.get("token"),
   },
 });
 function Chat({ id }) {
-  //const { id } = useParams();
-  const [username, setUsername] = useState(""); // Add this
-  const [room, setRoom] = useState(""); // Add this
+  const [room, setRoom] = useState("");
   const user = useSelector((state) => state.user);
   const [messages, setMessages] = useState([]);
 
   async function joinRoom() {
-    console.log(user.id, id);
     const roomRes = await api.chat.getRoom(user.id, id);
     let roomData = roomRes.data;
-    console.log(roomData);
 
     if (!roomData.length) {
       const createdRoomRes = await api.chat.createRoom(user.id, id);
@@ -34,12 +27,9 @@ function Chat({ id }) {
     setRoom(roomData[0]);
     socket.emit("join_room", { roomId: roomData[0].RoomId });
     const messRes = await api.chat.getMessages(roomData[0].RoomId);
-    console.log(messRes);
     setMessages(messRes.data);
   }
   useEffect(() => {
-    console.log(id);
-    console.log(room);
     if (room) {
       socket.emit("leave_room", { roomId: room.RoomId });
     }

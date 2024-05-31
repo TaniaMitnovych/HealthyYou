@@ -29,5 +29,4 @@ Message.belongsTo(User, { as: "receiver", foreignKey: "toId" });
 Room.hasMany(Message, { foreignKey: "roomId" });
 Message.belongsTo(Room, { foreignKey: "roomId" });
 
-//Message.sync({ force: true });
 module.exports = Message;

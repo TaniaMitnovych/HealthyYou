@@ -3,8 +3,8 @@ import api from "../../api";
 import dayjs from "dayjs";
 import { Button } from "@mui/material";
 import { ArrowLeftIcon, ArrowRightIcon } from "@mui/x-date-pickers";
-import { useDispatch, useSelector } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 function MakeAppointmentDialog({
   doctor,
@@ -14,7 +14,7 @@ function MakeAppointmentDialog({
   onCancel: () => void;
 }) {
   const user = useSelector((state: any) => state.user);
-  const [currentDate, setCuttentDate] = useState("2024-05-21T07:00:00.000Z");
+  const [currentDate, setCuttentDate] = useState("2024-05-27T07:00:00.000Z");
   const [schedule, setSchedule] = useState([
     {
       from: "",
@@ -67,7 +67,6 @@ function MakeAppointmentDialog({
         const timeIndex = list.findIndex(
           (item: any) => item.time === dayjs(appointment.from).format("HH:mm")
         );
-        console.log(timeIndex);
         if (timeIndex) {
           list[timeIndex].available = false;
         }
