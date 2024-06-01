@@ -16,6 +16,7 @@ const sequelize = require("./db");
 const { Server } = require("socket.io");
 const { addMessage } = require("./service/chat");
 const authSocketMiddleware = require("./middlewares/AuthSocketMiddleware");
+const path = require("path");
 
 const server = http.createServer(app);
 
@@ -62,7 +63,19 @@ io.on("connection", (socket) => {
     });
   });
 });
-
+const dirname = path.dirname("");
+const buildPath = path.join(dirname, "../healthy-you/build");
+app.use(express.static(buildPath));
+app.get("/", function (req, res) {
+  res.sendFile(
+    path.join(dirname, "../healthy-you/build/index.html"),
+    function (err) {
+      if (err) {
+        res.status(500).send(err);
+      }
+    }
+  );
+});
 app.use(cookieParser());
 app.use(express.json());
 app.use("/user", userRoute);
